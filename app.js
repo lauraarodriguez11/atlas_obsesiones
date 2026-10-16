@@ -21,18 +21,18 @@ const emotions = [
 // Matriz de pesos normalizados (suman 1.0)
 // Orden de índices: [Alegría, Sorpresa, Miedo, Ira, Asco, Tristeza]
 const items = [
-  { name: "Hilbert",       imgSrc: "img/hilbert.png",     weights: [0.45, 0.55, 0.00, 0.00, 0.00, 0.00] },
-  { name: "Gatita",        imgSrc: "img/gatita.png",      weights: [0.50, 0.15, 0.35, 0.00, 0.00, 0.00] },
-  { name: "Orquídeas",     imgSrc: "img/orquideas.png",   weights: [0.40, 0.60, 0.00, 0.00, 0.00, 0.00] },
-  { name: "Luz",           imgSrc: "img/luz.png",         weights: [0.50, 0.00, 0.00, 0.00, 0.00, 0.50] },
-  { name: "Avatar",        imgSrc: "img/avatar.png",      weights: [0.35, 0.55, 0.00, 0.00, 0.00, 0.10] },
-  { name: "Terror",        imgSrc: "img/terror.png",      weights: [0.00, 0.35, 0.50, 0.00, 0.00, 0.15] },
-  { name: "Arcane",        imgSrc: "img/arcane.png",      weights: [0.00, 0.25, 0.00, 0.40, 0.00, 0.35] },
-  { name: "Discos",        imgSrc: "img/discos.png",      weights: [0.40, 0.00, 0.15, 0.00, 0.00, 0.45] },
-  { name: "Vulneración",   imgSrc: "img/vulneracion.png", weights: [0.00, 0.00, 0.00, 0.60, 0.40, 0.00] },
-  { name: "Hermanos",      imgSrc: "img/hermanos.png",    weights: [0.65, 0.15, 0.20, 0.00, 0.00, 0.00] },
-  { name: "Padre",         imgSrc: "img/padre.png",       weights: [0.60, 0.15, 0.00, 0.00, 0.00, 0.25] },
-  { name: "Naturaleza",    imgSrc: "img/naturaleza.png",  weights: [0.70, 0.20, 0.00, 0.00, 0.00, 0.10] }
+  { name: "Hilbert",       imgSrc: "img/hilbert.jpeg",     weights: [0.45, 0.55, 0.00, 0.00, 0.00, 0.00] },
+  { name: "Gatita",        imgSrc: "img/gatita.jpeg",      weights: [0.50, 0.15, 0.35, 0.00, 0.00, 0.00] },
+  { name: "Orquídeas",     imgSrc: "img/orquideas.jpeg",   weights: [0.40, 0.60, 0.00, 0.00, 0.00, 0.00] },
+  { name: "Luz",           imgSrc: "img/luz.jpeg",         weights: [0.50, 0.00, 0.00, 0.00, 0.00, 0.50] },
+  { name: "Avatar",        imgSrc: "img/avatar.jpeg",      weights: [0.35, 0.55, 0.00, 0.00, 0.00, 0.10] },
+  { name: "Terror",        imgSrc: "img/terror.jpeg",      weights: [0.00, 0.35, 0.50, 0.00, 0.00, 0.15] },
+  { name: "Arcane",        imgSrc: "img/arcane.jpeg",      weights: [0.00, 0.25, 0.00, 0.40, 0.00, 0.35] },
+  { name: "Discos",        imgSrc: "img/discos.jpeg",      weights: [0.40, 0.00, 0.15, 0.00, 0.00, 0.45] },
+  { name: "Vulneración",   imgSrc: "img/vulneracion.jpeg", weights: [0.00, 0.00, 0.00, 0.60, 0.40, 0.00] },
+  { name: "Hermanos",      imgSrc: "img/hermanos.jpeg",    weights: [0.65, 0.15, 0.20, 0.00, 0.00, 0.00] },
+  { name: "Padre",         imgSrc: "img/padre.jpeg",       weights: [0.60, 0.15, 0.00, 0.00, 0.00, 0.25] },
+  { name: "Naturaleza",    imgSrc: "img/naturaleza.jpeg",  weights: [0.70, 0.20, 0.00, 0.00, 0.00, 0.10] }
 ];
 
 // Precarga de imágenes
