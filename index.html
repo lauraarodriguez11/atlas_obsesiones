@@ -23,7 +23,6 @@
       height: 100vh;
     }
 
-    /* Solo título, limpio y sin subtítulo */
     header {
       position: absolute;
       top: 20px;
@@ -95,7 +94,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.78);
       backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
@@ -229,6 +228,24 @@
       color: #c9d1d9;
       line-height: 1.55;
     }
+
+    /* Créditos de autoría / fuentes */
+    .modal-credits {
+      font-size: 0.75rem;
+      color: #8b949e;
+      border-top: 1px solid #21262d;
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+
+    .modal-credits a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    .modal-credits a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -257,6 +274,7 @@
         <div id="modalCollage" class="collage-container"></div>
         <div class="modal-tags" id="modalTags"></div>
         <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-credits" id="modalCredits"></div>
       </div>
     </div>
   </div>
@@ -270,6 +288,7 @@
     const modalCollage = document.getElementById("modalCollage");
     const modalTags = document.getElementById("modalTags");
     const modalDesc = document.getElementById("modalDesc");
+    const modalCredits = document.getElementById("modalCredits");
 
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -299,71 +318,411 @@
         id: "hilbert",
         name: "Hotel de Hilbert",
         weights: [0.45, 0.55, 0.0, 0.0, 0.0, 0.0],
-        images: ["img/hilbert.png"],
-        desc: "Constante abstracta y juego lógico siempre disponible. Fascinación por el infinito y refugio matemático."
+        images: ["img/hilbert.jpeg"],
+        desc: "Constante abstracta y juego lógico siempre disponible. Fascinación por el infinito y refugio matemático.",
+        credits: null
       },
       {
         id: "gatita",
         name: "Tu gatita",
         weights: [0.50, 0.15, 0.35, 0.0, 0.0, 0.0],
-        images: ["img/gatita.png"],
-        desc: "Afecto incondicional en tensión permanente con el zarpazo imprevisto."
+        images: ["img/gatita1.jpeg", "img/gatita2.jpeg", "img/gatita3.jpeg"],
+        desc: "Afecto incondicional en tensión permanente con el zarpazo imprevisto.",
+        credits: null
       },
       {
         id: "orquideas",
         name: "Las orquídeas",
         weights: [0.40, 0.60, 0.0, 0.0, 0.0, 0.0],
-        images: ["img/orquideas.png"],
-        desc: "Mimetismo vegetal y morfologías insólitas (Orchis italica). Perfección botánica y asombro formal."
+        images: ["img/orquidea1.jpeg", "img/orquideahombre.jpeg"],
+        desc: "Mimetismo vegetal y morfologías insólitas (Orchis italica). Perfección botánica y asombro formal.",
+        credits: null
       },
       {
         id: "luz",
         name: "La luz",
         weights: [0.50, 0.0, 0.0, 0.0, 0.0, 0.50],
-        images: ["img/luz.png"],
-        desc: "Regulador atmosférico vital: energía y lucidez en claridad frente a melancolía pesada en penumbra."
-      },
-      {
-        id: "avatar",
-        name: "Avatar",
-        weights: [0.35, 0.55, 0.0, 0.0, 0.0, 0.10],
-        images: ["img/avatar.png"],
-        desc: "Worldbuilding inmersivo monumental y bio-conexión con un ecosistema desbordante."
+        images: ["img/luz.jpeg", "img/luz2.jpeg"],
+        desc: "Regulador atmosférico vital: energía y lucidez en claridad frente a melancolía pesada en penumbra.",
+        credits: null
       },
       {
         id: "terror",
         name: "Terror cautivador",
         weights: [0.0, 0.35, 0.50, 0.0, 0.0, 0.15],
-        images: ["img/terror.png"],
-        desc: "Nuestra parte de noche, AHS. Lo siniestro elevado a estética narrativa: rituales, sombra y fascinación oscura."
-      },
-      {
-        id: "arcane",
-        name: "Arcane",
-        weights: [0.0, 0.25, 0.0, 0.40, 0.0, 0.35],
-        images: ["img/arcane.png"],
-        desc: "Fricción trágica, fractura de lazos entre hermanas y potencia visual arrolladora."
+        images: ["img/nuestrapartedenoche.jpeg", "img/ahs.jpeg", "img/ahs13.jpeg"],
+        desc: "Nuestra parte de noche, AHS. Lo siniestro elevado a estética narrativa: rituales, sombra y fascinación oscura.",
+        credits: {
+          text: "Fotografías y cartelería promocional de obras referenciadas (Mariana Enriquez / FX)",
+          url: null
+        }
       },
       {
         id: "discos",
         name: "Discos en bucle",
         weights: [0.40, 0.0, 0.15, 0.0, 0.0, 0.45],
-        images: ["img/discos.png"],
-        desc: "Brock, Isaiah Rashad, Baño María, Deltaplane... Aislamiento acústico y paisaje íntimo para procesar estados."
+        images: ["img/ginger.jpeg", "img/itsbeenawful.jpeg", "img/deltaplane.jpeg", "img/data.jpeg", "img/atavista.jpeg"],
+        desc: "Brock, Isaiah Rashad, Baño María, Deltaplane, Tainy, Childish Gambino... Aislamiento acústico y paisaje íntimo para procesar estados.",
+        credits: {
+          text: "Portadas de álbumes oficiales",
+          url: null
+        }
       },
       {
         id: "vulneracion",
         name: "Vulneración de identidad",
         weights: [0.0, 0.0, 0.0, 0.60, 0.40, 0.0],
-        images: ["img/vulneracion.png"],
-        desc: "Principio moral visceral: rechazo e ira radical ante el abuso homófobo, racista o capacitista."
+        images: ["img/vulneracion.jpeg"],
+        desc: "Principio moral visceral: rechazo e ira radical ante el abuso homófobo, racista o capacitista.",
+        credits: {
+          text: "Pol Kurucz — Serie 'Glam Jail'",
+          url: "https://www.polkurucz.com/glam-jail/dyza5qqfna7glfrt1kge9khxwdjp7s"
+        }
       },
       {
         id: "hermanos",
         name: "Hermanos",
         weights: [0.65, 0.15, 0.20, 0.0, 0.0, 0.0],
-        images: ["img/hermanos.png"],
-        desc: "Complicidad de origen, raíz compartida y lealtad visceral."
+        images: ["img/hm1.jpeg", "img/hm2.jpeg", "img/hm3.jpeg", "img/hm4.jpeg", "img/hm5.jpeg"],
+        desc: "Complicidad de origen, raíz compartida y lealtad visceral.",
+        credits: null
       },
       {
-        id:
+        id: "padre",
+        name: "Padre",
+        weights: [0.60, 0.15, 0.0, 0.0, 0.0, 0.25],
+        images: ["img/poli.jpeg", "img/poli1.jpeg", "img/poli2.jpeg"],
+        desc: "Pilar de arraigo, respeto y continuidad generacional.",
+        credits: null
+      },
+      {
+        id: "naturaleza",
+        name: "Huida al monte",
+        weights: [0.70, 0.20, 0.0, 0.0, 0.0, 0.10],
+        images: ["img/nature1.jpeg", "img/nature2.jpeg"],
+        desc: "Necesidad periódica de fuga silvestre. Descompresión nerviosa y retorno al silencio orgánico.",
+        credits: null
+      }
+    ];
+
+    // Carga de imágenes sin bloquear ejecución
+    const imageCache = {};
+    items.forEach(item => {
+      const img = new Image();
+      img.src = item.images[0];
+      img.onload = () => render();
+      img.onerror = () => render();
+      imageCache[item.id] = img;
+    });
+
+    let nodes = [];
+    function computeNodes() {
+      nodes = items.map(item => {
+        let bx = 0, by = 0;
+        item.weights.forEach((w, idx) => {
+          bx += w * (BASE_RADIUS * Math.cos(emotions[idx].angle));
+          by += w * (-BASE_RADIUS * Math.sin(emotions[idx].angle));
+        });
+        return {
+          ...item,
+          origX: bx,
+          origY: by,
+          x: bx,
+          y: by,
+          radius: NODE_RADIUS
+        };
+      });
+
+      // Separación física anti-colisión
+      const minDist = NODE_RADIUS * 2.3;
+      for (let iter = 0; iter < 50; iter++) {
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[j].x - nodes[i].x;
+            const dy = nodes[j].y - nodes[i].y;
+            const dist = Math.hypot(dx, dy) || 0.001;
+            if (dist < minDist) {
+              const overlap = (minDist - dist) / 2;
+              const nx = dx / dist;
+              const ny = dy / dist;
+              nodes[i].x -= nx * overlap;
+              nodes[i].y -= ny * overlap;
+              nodes[j].x += nx * overlap;
+              nodes[j].y += ny * overlap;
+            }
+          }
+          nodes[i].x += (nodes[i].origX - nodes[i].x) * 0.04;
+          nodes[i].y += (nodes[i].origY - nodes[i].y) * 0.04;
+        }
+      }
+    }
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.resetTransform();
+      ctx.scale(dpr, dpr);
+      render();
+    }
+    window.addEventListener("resize", resize);
+
+    function render() {
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+
+      ctx.save();
+      ctx.translate(width / 2 + camera.x, height / 2 + camera.y);
+      ctx.scale(camera.zoom, camera.zoom);
+
+      // Anillos concéntricos
+      [0.33, 0.66, 1.0].forEach(level => {
+        ctx.strokeStyle = level === 1.0 ? "#30363d" : "#1c2128";
+        ctx.lineWidth = (level === 1.0 ? 1.8 : 1) / camera.zoom;
+        ctx.beginPath();
+        emotions.forEach((e, i) => {
+          const vx = BASE_RADIUS * level * Math.cos(e.angle);
+          const vy = -BASE_RADIUS * level * Math.sin(e.angle);
+          if (i === 0) ctx.moveTo(vx, vy);
+          else ctx.lineTo(vx, vy);
+        });
+        ctx.closePath();
+        ctx.stroke();
+      });
+
+      // Ejes y etiquetas emocionales
+      emotions.forEach(e => {
+        const vx = BASE_RADIUS * Math.cos(e.angle);
+        const vy = -BASE_RADIUS * Math.sin(e.angle);
+
+        ctx.strokeStyle = "#21262d";
+        ctx.lineWidth = 1.2 / camera.zoom;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(vx, vy);
+        ctx.stroke();
+
+        const lx = (BASE_RADIUS + 32) * Math.cos(e.angle);
+        const ly = -(BASE_RADIUS + 32) * Math.sin(e.angle);
+
+        ctx.fillStyle = "#58a6ff";
+        ctx.font = `bold ${13 / camera.zoom}px system-ui`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(e.name, lx, ly);
+      });
+
+      // Dibujar nodos
+      nodes.forEach(node => {
+        const img = imageCache[node.id];
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.clip();
+
+        if (img && img.complete && img.naturalWidth !== 0) {
+          ctx.drawImage(img, node.x - node.radius, node.y - node.radius, node.radius * 2, node.radius * 2);
+        } else {
+          ctx.fillStyle = "#238636";
+          ctx.fill();
+          ctx.fillStyle = "#ffffff";
+          ctx.font = `bold ${10 / camera.zoom}px system-ui`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(node.name.slice(0, 2), node.x, node.y);
+        }
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = "#f0f6fc";
+        ctx.lineWidth = 2 / camera.zoom;
+        ctx.stroke();
+
+        ctx.fillStyle = "#c9d1d9";
+        ctx.font = `${11 / camera.zoom}px system-ui`;
+        ctx.textAlign = "center";
+        ctx.fillText(node.name, node.x, node.y + node.radius + (12 / camera.zoom));
+      });
+
+      ctx.restore();
+    }
+
+    function screenToWorld(sx, sy) {
+      return {
+        x: (sx - width / 2 - camera.x) / camera.zoom,
+        y: (sy - height / 2 - camera.y) / camera.zoom
+      };
+    }
+
+    // Interacción táctil (Pinch & Pan)
+    let isDragging = false;
+    let dragStart = { x: 0, y: 0 };
+    let initialTouchDist = null;
+    let initialZoom = 1.0;
+    let touchStartPos = { x: 0, y: 0 };
+    let didMoveSignificantly = false;
+
+    canvas.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        dragStart = { x: e.touches[0].clientX - camera.x, y: e.touches[0].clientY - camera.y };
+        touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        didMoveSignificantly = false;
+      } else if (e.touches.length === 2) {
+        isDragging = false;
+        initialTouchDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        initialZoom = camera.zoom;
+      }
+    }, { passive: false });
+
+    canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      if (e.touches.length === 1 && isDragging) {
+        if (Math.hypot(e.touches[0].clientX - touchStartPos.x, e.touches[0].clientY - touchStartPos.y) > 6) {
+          didMoveSignificantly = true;
+        }
+        camera.x = e.touches[0].clientX - dragStart.x;
+        camera.y = e.touches[0].clientY - dragStart.y;
+        render();
+      } else if (e.touches.length === 2 && initialTouchDist) {
+        didMoveSignificantly = true;
+        const currentDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        camera.zoom = Math.min(Math.max(initialZoom * (currentDist / initialTouchDist), camera.minZoom), camera.maxZoom);
+        render();
+      }
+    }, { passive: false });
+
+    canvas.addEventListener("touchend", (e) => {
+      if (!didMoveSignificantly && e.changedTouches.length === 1) {
+        const touch = e.changedTouches[0];
+        checkClick(touch.clientX, touch.clientY);
+      }
+      if (e.touches.length === 0) isDragging = false;
+      initialTouchDist = null;
+    });
+
+    // Ratón
+    canvas.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      dragStart = { x: e.clientX - camera.x, y: e.clientY - camera.y };
+      touchStartPos = { x: e.clientX, y: e.clientY };
+      didMoveSignificantly = false;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      if (Math.hypot(e.clientX - touchStartPos.x, e.clientY - touchStartPos.y) > 5) {
+        didMoveSignificantly = true;
+      }
+      camera.x = e.clientX - dragStart.x;
+      camera.y = e.clientY - dragStart.y;
+      render();
+    });
+
+    window.addEventListener("mouseup", (e) => {
+      if (!didMoveSignificantly && isDragging) {
+        checkClick(e.clientX, e.clientY);
+      }
+      isDragging = false;
+    });
+
+    canvas.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const factor = e.deltaY < 0 ? 1.12 : 0.88;
+      camera.zoom = Math.min(Math.max(camera.zoom * factor, camera.minZoom), camera.maxZoom);
+      render();
+    }, { passive: false });
+
+    function checkClick(sx, sy) {
+      const world = screenToWorld(sx, sy);
+      for (const node of nodes) {
+        if (Math.hypot(node.x - world.x, node.y - world.y) <= node.radius * 1.3) {
+          openModal(node);
+          break;
+        }
+      }
+    }
+
+    function openModal(node) {
+      modalTitle.textContent = node.name;
+      modalDesc.textContent = node.desc;
+
+      // Píldoras de emoción
+      modalTags.innerHTML = "";
+      node.weights.forEach((w, idx) => {
+        if (w > 0) {
+          const badge = document.createElement("div");
+          badge.className = "tag-badge";
+          badge.textContent = `${emotions[idx].name}: ${Math.round(w * 100)}%`;
+          modalTags.appendChild(badge);
+        }
+      });
+
+      // Collage dinámico sin huecos
+      modalCollage.innerHTML = "";
+      const count = node.images.length;
+      modalCollage.className = "collage-container " + (
+        count === 1 ? "count-1" :
+        count === 2 ? "count-2" :
+        count === 3 ? "count-3" :
+        count === 4 ? "count-4" : "count-many"
+      );
+
+      node.images.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        modalCollage.appendChild(img);
+      });
+
+      // Créditos y enlaces de autoría
+      if (node.credits) {
+        if (node.credits.url) {
+          modalCredits.innerHTML = `Crédito imagen: <a href="${node.credits.url}" target="_blank" rel="noopener noreferrer">${node.credits.text} ↗</a>`;
+        } else {
+          modalCredits.textContent = `Crédito imagen: ${node.credits.text}`;
+        }
+        modalCredits.style.display = "block";
+      } else {
+        modalCredits.style.display = "none";
+      }
+
+      modal.classList.add("active");
+    }
+
+    modalClose.addEventListener("click", () => modal.classList.remove("active"));
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.remove("active");
+    });
+
+    document.getElementById("zoomIn").addEventListener("click", () => {
+      camera.zoom = Math.min(camera.zoom * 1.25, camera.maxZoom);
+      render();
+    });
+    document.getElementById("zoomOut").addEventListener("click", () => {
+      camera.zoom = Math.max(camera.zoom * 0.8, camera.minZoom);
+      render();
+    });
+    document.getElementById("zoomReset").addEventListener("click", () => {
+      camera.x = 0;
+      camera.y = 0;
+      camera.zoom = 1.0;
+      render();
+    });
+
+    computeNodes();
+    resize();
+  </script>
+</body>
+</html>
