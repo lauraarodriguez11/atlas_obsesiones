@@ -131,7 +131,7 @@
     }
 
     .modal-header {
-      padding: 18px 24px;
+      padding: 16px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -154,11 +154,11 @@
     }
 
     .modal-body {
-      padding: 20px 24px;
+      padding: 18px 22px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     /* Collage dinámico sin huecos */
@@ -174,17 +174,17 @@
 
     .collage-container.count-1 {
       grid-template-columns: 1fr;
-      max-height: 380px;
+      max-height: 420px;
     }
 
     .collage-container.count-2 {
       grid-template-columns: 1fr 1fr;
-      max-height: 320px;
+      max-height: 330px;
     }
 
     .collage-container.count-3 {
       grid-template-columns: 2fr 1fr;
-      grid-template-rows: 150px 150px;
+      grid-template-rows: 155px 155px;
     }
     .collage-container.count-3 img:first-child {
       grid-row: span 2;
@@ -197,7 +197,7 @@
 
     .collage-container.count-many {
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 120px;
+      grid-auto-rows: 125px;
     }
 
     .collage-container img {
@@ -223,19 +223,13 @@
       color: #58a6ff;
     }
 
-    .modal-desc {
-      font-size: 0.92rem;
-      color: #c9d1d9;
-      line-height: 1.55;
-    }
-
-    /* Créditos de autoría / fuentes */
+    /* Créditos de autoría / enlaces */
     .modal-credits {
       font-size: 0.75rem;
       color: #8b949e;
       border-top: 1px solid #21262d;
-      padding-top: 10px;
-      margin-top: 4px;
+      padding-top: 8px;
+      margin-top: 2px;
     }
 
     .modal-credits a {
@@ -273,7 +267,6 @@
       <div class="modal-body">
         <div id="modalCollage" class="collage-container"></div>
         <div class="modal-tags" id="modalTags"></div>
-        <p class="modal-desc" id="modalDesc"></p>
         <div class="modal-credits" id="modalCredits"></div>
       </div>
     </div>
@@ -287,7 +280,6 @@
     const modalClose = document.getElementById("modalClose");
     const modalCollage = document.getElementById("modalCollage");
     const modalTags = document.getElementById("modalTags");
-    const modalDesc = document.getElementById("modalDesc");
     const modalCredits = document.getElementById("modalCredits");
 
     let width = window.innerWidth;
@@ -313,13 +305,13 @@
       { name: "Tristeza", angle: (5 * Math.PI) / 3 }
     ];
 
+    // Orden de pesos: [Alegría, Sorpresa, Miedo, Ira, Asco, Tristeza]
     const items = [
       {
         id: "hilbert",
         name: "Hotel de Hilbert",
         weights: [0.45, 0.55, 0.0, 0.0, 0.0, 0.0],
         images: ["img/hilbert.jpeg"],
-        desc: "Constante abstracta y juego lógico siempre disponible. Fascinación por el infinito y refugio matemático.",
         credits: null
       },
       {
@@ -327,7 +319,6 @@
         name: "Tu gatita",
         weights: [0.50, 0.15, 0.35, 0.0, 0.0, 0.0],
         images: ["img/gatita1.jpeg", "img/gatita2.jpeg", "img/gatita3.jpeg"],
-        desc: "Afecto incondicional en tensión permanente con el zarpazo imprevisto.",
         credits: null
       },
       {
@@ -335,15 +326,14 @@
         name: "Las orquídeas",
         weights: [0.40, 0.60, 0.0, 0.0, 0.0, 0.0],
         images: ["img/orquidea1.jpeg", "img/orquideahombre.jpeg"],
-        desc: "Mimetismo vegetal y morfologías insólitas (Orchis italica). Perfección botánica y asombro formal.",
         credits: null
       },
       {
         id: "luz",
         name: "La luz",
-        weights: [0.50, 0.0, 0.0, 0.0, 0.0, 0.50],
+        // Catalizador omnidireccional: reparte peso equitativo y queda en el centro (0,0)
+        weights: [0.1667, 0.1667, 0.1667, 0.1667, 0.1666, 0.1666],
         images: ["img/luz.jpeg", "img/luz2.jpeg"],
-        desc: "Regulador atmosférico vital: energía y lucidez en claridad frente a melancolía pesada en penumbra.",
         credits: null
       },
       {
@@ -351,7 +341,6 @@
         name: "Terror cautivador",
         weights: [0.0, 0.35, 0.50, 0.0, 0.0, 0.15],
         images: ["img/nuestrapartedenoche.jpeg", "img/ahs.jpeg", "img/ahs13.jpeg"],
-        desc: "Nuestra parte de noche, AHS. Lo siniestro elevado a estética narrativa: rituales, sombra y fascinación oscura.",
         credits: {
           text: "Fotografías y cartelería promocional de obras referenciadas (Mariana Enriquez / FX)",
           url: null
@@ -362,7 +351,6 @@
         name: "Discos en bucle",
         weights: [0.40, 0.0, 0.15, 0.0, 0.0, 0.45],
         images: ["img/ginger.jpeg", "img/itsbeenawful.jpeg", "img/deltaplane.jpeg", "img/data.jpeg", "img/atavista.jpeg"],
-        desc: "Brock, Isaiah Rashad, Baño María, Deltaplane, Tainy, Childish Gambino... Aislamiento acústico y paisaje íntimo para procesar estados.",
         credits: {
           text: "Portadas de álbumes oficiales",
           url: null
@@ -373,7 +361,6 @@
         name: "Vulneración de identidad",
         weights: [0.0, 0.0, 0.0, 0.60, 0.40, 0.0],
         images: ["img/vulneracion.jpeg"],
-        desc: "Principio moral visceral: rechazo e ira radical ante el abuso homófobo, racista o capacitista.",
         credits: {
           text: "Pol Kurucz — Serie 'Glam Jail'",
           url: "https://www.polkurucz.com/glam-jail/dyza5qqfna7glfrt1kge9khxwdjp7s"
@@ -384,7 +371,6 @@
         name: "Hermanos",
         weights: [0.65, 0.15, 0.20, 0.0, 0.0, 0.0],
         images: ["img/hm1.jpeg", "img/hm2.jpeg", "img/hm3.jpeg", "img/hm4.jpeg", "img/hm5.jpeg"],
-        desc: "Complicidad de origen, raíz compartida y lealtad visceral.",
         credits: null
       },
       {
@@ -392,7 +378,6 @@
         name: "Padre",
         weights: [0.60, 0.15, 0.0, 0.0, 0.0, 0.25],
         images: ["img/poli.jpeg", "img/poli1.jpeg", "img/poli2.jpeg"],
-        desc: "Pilar de arraigo, respeto y continuidad generacional.",
         credits: null
       },
       {
@@ -400,12 +385,11 @@
         name: "Huida al monte",
         weights: [0.70, 0.20, 0.0, 0.0, 0.0, 0.10],
         images: ["img/nature1.jpeg", "img/nature2.jpeg"],
-        desc: "Necesidad periódica de fuga silvestre. Descompresión nerviosa y retorno al silencio orgánico.",
         credits: null
       }
     ];
 
-    // Carga de imágenes sin bloquear ejecución
+    // Carga robusta de imágenes sin bloquear dibujado
     const imageCache = {};
     items.forEach(item => {
       const img = new Image();
@@ -433,7 +417,7 @@
         };
       });
 
-      // Separación física anti-colisión
+      // Separación física suave anti-solape
       const minDist = NODE_RADIUS * 2.3;
       for (let iter = 0; iter < 50; iter++) {
         for (let i = 0; i < nodes.length; i++) {
@@ -479,7 +463,7 @@
       ctx.translate(width / 2 + camera.x, height / 2 + camera.y);
       ctx.scale(camera.zoom, camera.zoom);
 
-      // Anillos concéntricos
+      // Anillos concéntricos de referencia
       [0.33, 0.66, 1.0].forEach(level => {
         ctx.strokeStyle = level === 1.0 ? "#30363d" : "#1c2128";
         ctx.lineWidth = (level === 1.0 ? 1.8 : 1) / camera.zoom;
@@ -494,7 +478,7 @@
         ctx.stroke();
       });
 
-      // Ejes y etiquetas emocionales
+      // Ejes radiales y nombres de las 6 emociones
       emotions.forEach(e => {
         const vx = BASE_RADIUS * Math.cos(e.angle);
         const vy = -BASE_RADIUS * Math.sin(e.angle);
@@ -516,7 +500,7 @@
         ctx.fillText(e.name, lx, ly);
       });
 
-      // Dibujar nodos
+      // Render de los nodos
       nodes.forEach(node => {
         const img = imageCache[node.id];
 
@@ -560,7 +544,7 @@
       };
     }
 
-    // Interacción táctil (Pinch & Pan)
+    // Gestos táctiles
     let isDragging = false;
     let dragStart = { x: 0, y: 0 };
     let initialTouchDist = null;
@@ -657,7 +641,6 @@
 
     function openModal(node) {
       modalTitle.textContent = node.name;
-      modalDesc.textContent = node.desc;
 
       // Píldoras de emoción
       modalTags.innerHTML = "";
@@ -686,7 +669,7 @@
         modalCollage.appendChild(img);
       });
 
-      // Créditos y enlaces de autoría
+      // Créditos y autoría
       if (node.credits) {
         if (node.credits.url) {
           modalCredits.innerHTML = `Crédito imagen: <a href="${node.credits.url}" target="_blank" rel="noopener noreferrer">${node.credits.text} ↗</a>`;
