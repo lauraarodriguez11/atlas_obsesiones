@@ -89,6 +89,7 @@
       transform: scale(0.92);
     }
 
+    /* Modal / Pop-up de Collage */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -242,9 +243,109 @@
     .modal-credits a:hover {
       text-decoration: underline;
     }
+
+    /* Pantalla de Bloqueo por Contraseña */
+    #lockScreen {
+      position: fixed;
+      inset: 0;
+      background: #0b0e14;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    #lockScreen.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .lock-box {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 32px 28px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .lock-box h2 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+      color: #f0f6fc;
+    }
+
+    .lock-box p {
+      font-size: 0.85rem;
+      color: #8b949e;
+      margin-bottom: 22px;
+    }
+
+    .lock-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #30363d;
+      background: #0d1117;
+      color: #f0f6fc;
+      font-size: 1rem;
+      outline: none;
+      text-align: center;
+      letter-spacing: 0.15em;
+      transition: border-color 0.2s;
+    }
+
+    .lock-input:focus {
+      border-color: #58a6ff;
+    }
+
+    .lock-input.error {
+      border-color: #f85149;
+      animation: shake 0.35s ease;
+    }
+
+    .lock-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #238636;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .lock-btn:active {
+      background: #2ea043;
+      transform: scale(0.98);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Capa de autenticación previa -->
+  <div id="lockScreen">
+    <div class="lock-box">
+      <h2>Atlas de Obsesiones</h2>
+      <p>Introduce la clave de acceso para ver el mapa</p>
+      <input type="password" id="passInput" class="lock-input" placeholder="••••••••" autocomplete="current-password" />
+      <button id="unlockBtn" class="lock-btn">Acceder</button>
+    </div>
+  </div>
 
   <header>
     <h1>Atlas de Obsesiones</h1>
@@ -276,7 +377,42 @@
   </div>
 
   <script>
+    // SHA-256 de la contraseña 'atlas2026'
+    const AUTH_HASH = "b4fe9efea1d1f03bb7f44a330e791ea0623fc63dca8c538a7cba8b2f90117070";
+
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
+      const lockScreen = document.getElementById("lockScreen");
+      const passInput = document.getElementById("passInput");
+      const unlockBtn = document.getElementById("unlockBtn");
+
+      async function attemptUnlock() {
+        const hash = await sha256(passInput.value.trim());
+        if (hash === AUTH_HASH) {
+          sessionStorage.setItem("atlas_auth", "true");
+          lockScreen.classList.add("unlocked");
+        } else {
+          passInput.classList.add("error");
+          setTimeout(() => passInput.classList.remove("error"), 400);
+          passInput.value = "";
+        }
+      }
+
+      if (sessionStorage.getItem("atlas_auth") === "true") {
+        lockScreen.classList.add("unlocked");
+      }
+
+      unlockBtn.addEventListener("click", attemptUnlock);
+      passInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") attemptUnlock();
+      });
+
       const canvas = document.getElementById("atlasCanvas");
       const ctx = canvas.getContext("2d");
       const modal = document.getElementById("modal");
