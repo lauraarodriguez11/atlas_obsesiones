@@ -377,32 +377,27 @@
   </div>
 
   <script>
-    // SHA-256 de la contraseña 'atlas2026'
-    const AUTH_HASH = "b4fe9efea1d1f03bb7f44a330e791ea0623fc63dca8c538a7cba8b2f90117070";
-
-    async function sha256(message) {
-      const msgBuffer = new TextEncoder().encode(message);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const lockScreen = document.getElementById("lockScreen");
-      const passInput = document.getElementById("passInput");
-      const unlockBtn = document.getElementById("unlockBtn");
-
-      async function attemptUnlock() {
-        const hash = await sha256(passInput.value.trim());
-        if (hash === AUTH_HASH) {
-          sessionStorage.setItem("atlas_auth", "true");
-          lockScreen.classList.add("unlocked");
-        } else {
-          passInput.classList.add("error");
-          setTimeout(() => passInput.classList.remove("error"), 400);
-          passInput.value = "";
-        }
-      }
+        const VALID_KEYS = ["YXRsYXMyMDI2", "YXRsYXMgMjAyNg=="];
+    
+        document.addEventListener("DOMContentLoaded", () => {
+          const lockScreen = document.getElementById("lockScreen");
+          const passInput = document.getElementById("passInput");
+          const unlockBtn = document.getElementById("unlockBtn");
+    
+          function attemptUnlock() {
+            const val = passInput.value.trim();
+            // Convertir a Base64 de forma nativa e instantánea
+            const encoded = btoa(val);
+            
+            if (VALID_KEYS.includes(encoded)) {
+              sessionStorage.setItem("atlas_auth", "true");
+              lockScreen.classList.add("unlocked");
+            } else {
+              passInput.classList.add("error");
+              setTimeout(() => passInput.classList.remove("error"), 400);
+              passInput.value = "";
+            }
+          }
 
       if (sessionStorage.getItem("atlas_auth") === "true") {
         lockScreen.classList.add("unlocked");
