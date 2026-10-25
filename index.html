@@ -378,6 +378,14 @@
           }
         },
         {
+          id: "condescendencia",
+          name: "La condescendencia física e intelectual",
+          weights: [0.0, 0.0, 0.0, 0.60, 0.40, 0.0],
+          images: ["img/condescendencia.jpeg"],
+          desc: "Rechazo visceral ante la infantilización y el paternalismo: la irritación lúcida cuando asumen fragilidad o incapacidad por ser mujer o por la estatura física.",
+          credits: null
+        },
+        {
           id: "hermanos",
           name: "Hermanos",
           weights: [0.65, 0.15, 0.20, 0.0, 0.0, 0.0],
@@ -427,7 +435,12 @@
           id: "autopercepcion",
           name: "Autopercepción y atlas",
           weights: [0.25, 0.20, 0.40, 0.0, 0.0, 0.15],
-          images: ["img/autopercepcion.jpeg"],
+          images: [
+            "img/IMG-20220415-WA0079.jpg",
+            "img/IMG-20220415-WA0085.jpg",
+            "img/IMG-20220415-WA0086.jpg",
+            "img/IMG-20220415-WA0090.jpg"
+          ],
           desc: "Hiperconsciencia de una misma y necesidad de clasificar la propia mente: el vértigo y placer de observarse desde fuera.",
           credits: null
         },
@@ -435,7 +448,7 @@
           id: "detalle_ajeno",
           name: "La mirada clínica a lo ajeno",
           weights: [0.35, 0.45, 0.10, 0.0, 0.0, 0.10],
-          images: ["img/ajeno.jpeg"],
+          images: ["img/IMG_20220716_201403.jpg"],
           desc: "Fascinación entomológica por los detalles ajenos: la cadencia al andar, la postura, las microexpresiones y la densidad de vidas extrañas.",
           credits: null
         },
@@ -443,9 +456,12 @@
           id: "worldbuilding",
           name: "Worldbuilding",
           weights: [0.45, 0.45, 0.0, 0.0, 0.0, 0.10],
-          images: ["img/fantasia.jpeg"],
+          images: ["img/avatar.jpg"],
           desc: "Proyección vital e invención de mundos: estructurar mitologías, arquitecturas ficticias y realidades alternativas donde expandirse.",
-          credits: null
+          credits: {
+            text: "Avatar (20th Century Studios / Lightstorm Entertainment)",
+            url: null
+          }
         },
         {
           id: "geometria",
@@ -738,7 +754,6 @@
           modalCollage.appendChild(img);
         });
 
-        // Soporte de créditos (objeto único o lista de fuentes)
         if (node.credits) {
           const creditList = Array.isArray(node.credits) ? node.credits : [node.credits];
           modalCredits.innerHTML = "Créditos imagen: " + creditList.map(c => {
